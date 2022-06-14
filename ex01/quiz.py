@@ -1,7 +1,9 @@
 import random
+
 def main():
     seikai = syutudai()
     kaitou(seikai)
+    
 def syutudai():
     quiz = [
         {"q":"サザエの旦那の名前は？","a":["マスオ","ますお"]},
