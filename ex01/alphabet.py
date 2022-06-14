@@ -34,7 +34,7 @@ def kaitou(seikai):
         print("不正解")
         return 0
     else:
-        print("正解。具体的には?")
+        print("正解。具体的には? 一つずつ入力してください")
         for i in range(NUM_OF_ABS_CHARS):
             c = input(i+1,"つ目の文字を入力してください")
             if c not in seikai:
