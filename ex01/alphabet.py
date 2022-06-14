@@ -1,15 +1,19 @@
 import random
+import datetime
 
 NUM_OF_TRIALS = 5
 NUM_OF_ALL_CHARS = 10
 NUM_OF_ABS_CHARS = 2
 
 def main():
+    st = datetime.datetime.now() #計測開始
     for _ in range(NUM_OF_TRIALS):
         seikai = syutudai()
         f = kaitou(seikai)
         if (f == 1):
             break
+    ed = datetime.datetime.now() #計測終了
+    print((ed-st).second,"秒")
 
 def syutudai():
     alphabets = [chr(c + 65) for c in range(26)]
