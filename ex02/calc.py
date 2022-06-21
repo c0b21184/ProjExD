@@ -40,8 +40,8 @@ if __name__ == "__main__":
     x = 0 #列番号
     y = 1 #行番号
 
-    entry = tk.Entry(root, justify="right", width=10, font=(("Times New Roman", 40)))
-    entry.grid(row =0, column =0, columnspan =4)
+    entry = tk.Entry(root, justify="right", width=14, font=(("Times New Roman", 40)))
+    entry.grid(row = 0, column = 0, columnspan = 4)
 
     for i, num in enumerate(["AC","+/-","%","/",7, 8, 9,"*", 4, 5, 6,"-", 1, 2, 3,"+" ,0, ".", "="]): #ボタン生成
         btn = tk.Button(root,
