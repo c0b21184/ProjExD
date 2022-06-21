@@ -4,7 +4,6 @@ import tkinter.messagebox as tkm
 def button_click(event): #ボタンが押されたとき
     btn = event.widget
     num = btn["text"]
-    #tkm.showinfo("",f"{i}のボタンがクリックされました")
     if (num == "="): #＝が押されたとき
         eqn = entry.get()
         res = eval(eqn)
@@ -35,12 +34,11 @@ def button_click(event): #ボタンが押されたとき
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("calc")
-    #root.geometry("300x500")
 
     x = 0 #列番号
     y = 1 #行番号
 
-    entry = tk.Entry(root, justify="right", width=14, font=(("Times New Roman", 40)))
+    entry = tk.Entry(root, justify="right", width=14, font=(("Times New Roman", 40))) #入力フォーム生成
     entry.grid(row = 0, column = 0, columnspan = 4)
 
     for i, num in enumerate(["AC","+/-","%","/",7, 8, 9,"*", 4, 5, 6,"-", 1, 2, 3,"+" ,0, ".", "="]): #ボタン生成
