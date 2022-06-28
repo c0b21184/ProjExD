@@ -11,7 +11,7 @@ def key_up(event):
 
 def main_proc():
     global cx, cy, mx, my
-    delta = {
+    delta = { #各キーが押されたとき
         ""     : [0, 0],
         "Up"   : [0,-1],
         "Down" : [0,+1],
@@ -42,10 +42,12 @@ if __name__ == "__main__":
     tori = tk.PhotoImage(file="fig/3.png")
     start = tk.PhotoImage(file="fig/text_start.png")
     box = tk.PhotoImage(file="fig/kaizoku_takarabako.png")
+
     mx, my = 1, 1
     cx, cy = mx*100+50, my*100+50
     sx, sy = 100, 100
     tx, ty = 1150, 550
+    
     canvas.create_image(cx, cy, image=tori, tag="tori") #こうかとんを描画
     canvas.create_image(sx, sy, image=start, tag="start") #スタートを描画
     canvas.create_image(tx, ty,image=box, tag ="box") #宝箱を描画
@@ -58,4 +60,3 @@ if __name__ == "__main__":
     main_proc()
 
     root.mainloop()
-    
