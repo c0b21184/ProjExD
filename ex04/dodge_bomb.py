@@ -8,40 +8,37 @@ def main():
 
     #練習1
     pg.display.set_caption("逃げろ！こうかとん")
-    screen_sfc = pg.display.set_mode((1300, 700))
-    screen_rct = screen_sfc.get_rect()
-    bgimg_sfc = pg.image.load("fig/地獄.jpg")
-    bgimg_rct = bgimg_sfc.get_rect()
+    screen_sfc = pg.display.set_mode((1300, 700)) #Surface
+    screen_rct = screen_sfc.get_rect() #Rect
+    bgimg_sfc = pg.image.load("fig/地獄.jpg") #Surface
+    bgimg_rct = bgimg_sfc.get_rect() #rect
     screen_sfc.blit(bgimg_sfc, bgimg_rct)
 
     #練習3
-    kkimg_sfc = pg.image.load("fig/6.png")
-    kkimg_sfc = pg.transform.rotozoom(kkimg_sfc, 0, 2.0)
-    kkimg_rct = kkimg_sfc.get_rect()
-    kkimg_rct.center = 600, 300
+    kkimg_sfc = pg.image.load("fig/6.png") #Surface
+    kkimg_sfc = pg.transform.rotozoom(kkimg_sfc, 0, 2.0) #Surface
+    kkimg_rct = kkimg_sfc.get_rect() #Rect
+    kkimg_rct.center = 600, 300 #こうかとんを表示する
 
     #練習5
-    #bmimg_sfc = pg.Surface((20, 20))
-    #bmimg_sfc.set_colorkey((0, 0, 0))
-    #pg.draw.circle(bmimg_sfc, (255, 0, 0),(10, 10), 10)
-    bmimg_sfc1 = pg.image.load("fig/bakudan.png")
-    bmimg_sfc1 = pg.transform.rotozoom(bmimg_sfc1,0, 0.3)
-    bmimg_rct1 = bmimg_sfc1.get_rect()
+    bmimg_sfc1 = pg.image.load("fig/bakudan.png") #Surface
+    bmimg_sfc1 = pg.transform.rotozoom(bmimg_sfc1,0, 0.3) #Surface
+    bmimg_rct1 = bmimg_sfc1.get_rect() #Rect
     bmimg_rct1.centerx = random.randint(0, screen_rct.width)
-    bmimg_rct1.centery = random.randint(0, screen_rct.height)
+    bmimg_rct1.centery = random.randint(0, screen_rct.height) #爆弾1を表示
 
-    bmimg_sfc2 = pg.image.load("fig/bakudan.png")
-    bmimg_sfc2 = pg.transform.rotozoom(bmimg_sfc2,0, 0.3)
-    bmimg_rct2 = bmimg_sfc2.get_rect()
+    bmimg_sfc2 = pg.image.load("fig/bakudan.png")#Surface
+    bmimg_sfc2 = pg.transform.rotozoom(bmimg_sfc2,0, 0.3)#Surface
+    bmimg_rct2 = bmimg_sfc2.get_rect() #rect
     bmimg_rct2.centerx = random.randint(0, screen_rct.width)
-    bmimg_rct2.centery = random.randint(0, screen_rct.height)
+    bmimg_rct2.centery = random.randint(0, screen_rct.height) #爆弾2を表示
 
     #練習6
     vx1, vy1 = +1, +1
     vx2, vy2 = +1, +1
 
     while True:
-        screen_sfc.blit(bgimg_sfc, bgimg_rct)
+        screen_sfc.blit(bgimg_sfc, bgimg_rct) #Surfaceに貼り付け
 
         #練習2
         for event in pg.event.get():
@@ -80,7 +77,7 @@ def main():
         vy2 *= tate
 
         #練習8
-        if kkimg_rct.colliderect(bmimg_rct1): 
+        if kkimg_rct.colliderect(bmimg_rct1): #衝突判定
             root = tk()
             root.showinfo("ゲームオーバー","ゲームオーバー")
             root.mainloop()
@@ -90,7 +87,7 @@ def main():
             root.mainloop()
             
 
-        pg.display.update()
+        pg.display.update() #画面を更新
         clock.tick(1000)
 
 def check_bound(rct, scr_rct):
