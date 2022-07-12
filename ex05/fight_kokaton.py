@@ -119,9 +119,9 @@ def main():
     scr = Screen("負けるな！こうかとん", (1400, 700), "fig/地獄.jpg")
     kkt = Bird("fig/6.png", 2.0, (900, 400))
     #boss = Boss("fig/cat_boss_gang.png", 2.0, (1400, 700))
-    bkd1 = Bomb((random.randint(0,255),(random.randint(0,255)),(random.randint(0,255))), 10, (+1,+1), scr)
-    bkd2 = Bomb((random.randint(0,255),(random.randint(0,255)),(random.randint(0,255))), 10, (+1,+1), scr)
-    bkd3 = Bomb((random.randint(0,255),(random.randint(0,255)),(random.randint(0,255))), 10, (+1,+1), scr)
+    bkd1 = Bomb((random.randint(0,255),(random.randint(0,255)),(random.randint(0,255))), 10, (+1,+1), scr) #爆弾1
+    bkd2 = Bomb((random.randint(0,255),(random.randint(0,255)),(random.randint(0,255))), 10, (+1,+1), scr) #爆弾2
+    bkd3 = Bomb((random.randint(0,255),(random.randint(0,255)),(random.randint(0,255))), 10, (+1,+1), scr) #爆弾3
 
     beam = None
 
@@ -141,11 +141,11 @@ def main():
         bkd3.update(scr)
         if beam:
             beam.update(scr)
-        if kkt.rct.colliderect(bkd1.rct):
+        if kkt.rct.colliderect(bkd1.rct): #爆弾1と接触したとき
             return
-        if kkt.rct.colliderect(bkd2.rct):
+        if kkt.rct.colliderect(bkd2.rct): #爆弾2と接触したとき
             return
-        if kkt.rct.colliderect(bkd3.rct):
+        if kkt.rct.colliderect(bkd3.rct): #爆弾3と接触したとき
             return
 
         pg.display.update()
