@@ -11,12 +11,12 @@ HEIGHT_SPACE = 300  # 縦方向の空きスペース
 
 WIDTH_PADDLE = 200  # パドルの幅
 HEIGHT_PADDLE = 20  # パドルの高さ
-Y_PADDLE = 50  # パドルの下方向からの位置
+Y_PADDLE = 150  # パドルの下方向からの位置
 COLOR_PADDLE = "green"  # パドルの色
 
 RADIUS_BALL = 10  # ボールの半径
 COLOR_BALL = "red"  # ボールの色
-NUM_BALL = 20  # ボールの数
+NUM_BALL = 12  # ボールの数
 
 UPDATE_TIME = 20  # 更新間隔（ms）
 
@@ -68,30 +68,19 @@ class Ball:
             self.reflectH()
             self.x = self.x_max
 
-        if self.y < self.y_min:
-            label = tkinter.Label(app, text="game over")
-            label.pack()
-
-            # self.canvas.create_text(
-            # self.width // 2, self.height // 2,
-            # text="GAME OVER",
-            # font=("", 40),
-            # fill="red"
-            # )
-
-            self.is_playing = False
+        # if self.y < self.y_min:
         #     # 上の壁とぶつかった
 
         #     # 縦方向に反射
         #     self.reflectV()
         #     self.y = self.y_min
 
-        # elif self.y > self.y_max:
+        if self.y > self.y_max:
             # 下の壁とぶつかった
 
             # 縦方向に反射
-            # self.reflectV()
-            #self.y = self.y_max
+            self.reflectV()
+            self.y = self.y_max
 
     def turn(self, angle):
         '''移動方向をangleに応じて設定'''
@@ -192,7 +181,7 @@ class Ball:
     def exists(self):
         '''画面内に残っているかどうかの確認'''
 
-        return True if self.y <= self.y_max else False
+        return True if self.y >= self.y_min else False
 
 
 class Paddle:
@@ -301,6 +290,14 @@ class Breakout:
         for ball in delete_balls:
             # 削除対象リストのボールを削除
             self.delete(ball)
+            self.canvas.create_text(
+                self.width // 2, self.height // 2,
+                text="GAME OVER",
+                font=("", 40),
+                fill="red"
+            )
+
+            self.is_playing = False
 
         self.collision()
         self.updateFigures()
