@@ -1,5 +1,7 @@
 import tkinter
 import math
+import tkinter.messagebox as tkm
+import pygame as pg
 
 NUM_H_BLOCK = 10  # ブロッックの数（横方向)
 NUM_V_BLOCK = 5  # ブロックの数（縦方向）
@@ -19,6 +21,8 @@ COLOR_BALL = "red"  # ボールの色
 NUM_BALL = 12  # ボールの数
 
 UPDATE_TIME = 20  # 更新間隔（ms）
+
+music_wavs=["sound/game.wav","sound/gameover.wav","sound/gameclear.wav"]  #音データ
 
 
 class Ball:
@@ -246,9 +250,15 @@ class Breakout:
         self.drawFigures()
         self.setEvents()
 
+    def sound(self,n):    #音データから引数のデータを取り出し音を流す関数
+        pg.mixer.init(frequency = 44100)
+        pg.mixer.music.load(music_wavs[n])
+        pg.mixer.music.play(-1)
+
     def start(self, event):
         '''ゲーム開始'''
-
+        self.sound(0)    #ゲームが始まったらbgmを流す
+        
         if len(self.blocks) == 0 or len(self.balls) == 0:
             # ゲームクリア or ゲームオーバー時は最初からやり直し
 
@@ -383,7 +393,7 @@ class Breakout:
                 font=("", 40),
                 fill="blue"
             )
-
+            self.sound(2)
             self.is_playing = False
 
         if len(self.balls) == 0:
@@ -393,7 +403,7 @@ class Breakout:
                 font=("", 40),
                 fill="red"
             )
-
+            self.sound(1)
             self.is_playing = False
 
     def setEvents(self):
