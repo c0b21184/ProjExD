@@ -80,13 +80,14 @@ class Ball:
         #     self.reflectV()
         #     self.y = self.y_min
 
+
         #if self.y > self.y_max:
             # 下の壁とぶつかった
 
             # 縦方向に反射
             #self.reflectV()
             #self.y = self.y_max
-
+            
 
     def turn(self, angle):
         '''移動方向をangleに応じて設定'''
