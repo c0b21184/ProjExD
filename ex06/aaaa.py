@@ -1,10 +1,6 @@
 import tkinter
 import tkinter.messagebox as tkm
 import math
-<<<<<<< HEAD
-=======
-import tkinter.messagebox as tkm
->>>>>>> upstream/main
 import pygame as pg
 
 NUM_H_BLOCK = 10  # ブロッックの数（横方向)
@@ -25,13 +21,10 @@ COLOR_BALL = "red"  # ボールの色
 NUM_BALL = 12  # ボールの数
 
 UPDATE_TIME = 20  # 更新間隔（ms）
-
-<<<<<<< HEAD
 count = 0
-=======
+
 music_wavs=["sound/game.wav","sound/gameover.wav","sound/gameclear.wav"]  #音データ
 
->>>>>>> upstream/main
 
 class Ball:
     def __init__(self, x, y, radius, x_min, y_min, x_max, y_max):
@@ -196,14 +189,10 @@ class Ball:
         '''画面内に残っているかどうかの確認'''
         return False if 0 > self.y  else True
 
-<<<<<<< HEAD
-    
+
     def exists2(self):
         return True if  self.y < self.y_max  else False
-=======
-        return True if self.y >= self.y_min else False 
 
->>>>>>> upstream/main
 
 class Paddle:
     def __init__(self, x, y, width, height, x_min, y_min, x_max, y_max):
@@ -266,7 +255,6 @@ class Breakout:
         self.drawFigures()
         self.setEvents()
 
-<<<<<<< HEAD
 
     def count_time(self): #得点と生存時間を描画する
         time = pg.time.get_ticks()
@@ -276,12 +264,12 @@ class Breakout:
         tkm.showinfo("score",f"あなたの得点は{score}点です")
         tkm.showinfo("time",f"生存時間は{time}秒です")
 
-=======
+
     def sound(self,n):    #音データから引数のデータを取り出し音を流す関数
         pg.mixer.init(frequency = 44100)
         pg.mixer.music.load(music_wavs[n])
         pg.mixer.music.play(-1)
->>>>>>> upstream/main
+
 
     def start(self, event):
         global count
@@ -426,8 +414,7 @@ class Breakout:
     def result(self):
         '''ゲームの結果を表示する'''
 
-<<<<<<< HEAD
-=======
+
         if len(self.blocks) == 0:
             self.canvas.create_text(
                 self.width // 2, self.height // 2,
@@ -438,7 +425,7 @@ class Breakout:
             self.sound(2)
             self.is_playing = False
 
->>>>>>> upstream/main
+
         if len(self.balls) == 0:
             self.canvas.create_text(
                 self.width // 2, self.height // 2,
