@@ -244,8 +244,8 @@ class Breakout:
     def count_time(self): #得点と生存時間を表示する関数
         time = pg.time.get_ticks()
         time = time / 1000
-        times = time *10
-        score = int(count * 100 - times)
+        times = time * 10
+        score = int(count * 100 - times*1.5)
         tkm.showinfo("score",f"あなたの得点は{score}点です")
         tkm.showinfo("time",f"生存時間は{time}秒です")
 
