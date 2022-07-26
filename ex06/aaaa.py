@@ -169,11 +169,11 @@ class Ball:
         elif is_collideH:
             # 横方向のみ当たったので横方向に反射
             self.reflectH()
-
+    #川畑
     def exists1(self):
         '''画面内に残っているかどうかの確認'''
         return False if 0 > self.y else True 
-
+    #川畑
     def exists2(self):
         return True if self.y < self.y_max else False
 
@@ -239,7 +239,8 @@ class Breakout:
         self.createObjects()
         self.drawFigures()
         self.setEvents()
-
+    
+    #川畑
     def count_time(self): #得点と生存時間を表示する関数
         time = pg.time.get_ticks()
         time = time / 1000
@@ -248,7 +249,7 @@ class Breakout:
         tkm.showinfo("score",f"あなたの得点は{score}点です")
         tkm.showinfo("time",f"生存時間は{time}秒です")
 
-
+    #芹澤
     def sound(self,n):    #音データから引数のデータを取り出し音を流す関数
         pg.mixer.init(frequency = 44100)
         pg.mixer.music.load(music_wavs[n])
@@ -397,7 +398,8 @@ class Breakout:
 
                 # 当たってたらballを反射
                 ball.reflect(self.paddle)
-
+    
+    #川畑
     def result(self):
         '''ゲームの結果を表示する'''
 
