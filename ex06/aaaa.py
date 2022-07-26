@@ -1,6 +1,9 @@
 import tkinter
 import tkinter.messagebox as tkm
 import math
+
+import tkinter.messagebox as tkm
+
 import pygame as pg
 
 NUM_H_BLOCK = 10  # ブロッックの数（横方向)
@@ -23,6 +26,9 @@ NUM_BALL = 12  # ボールの数
 UPDATE_TIME = 20  # 更新間隔（ms）
 
 count = 0
+
+music_wavs=["sound/game.wav","sound/gameover.wav","sound/gameclear.wav"]  #音データ
+
 
 class Ball:
     def __init__(self, x, y, radius, x_min, y_min, x_max, y_max):
@@ -261,10 +267,17 @@ class Breakout:
         tkm.showinfo("time",f"生存時間は{time}秒です")
 
 
+    def sound(self,n):    #音データから引数のデータを取り出し音を流す関数
+        pg.mixer.init(frequency = 44100)
+        pg.mixer.music.load(music_wavs[n])
+        pg.mixer.music.play(-1)
+
+
     def start(self, event):
         global count
         '''ゲーム開始'''
-
+        self.sound(0)    #ゲームが始まったらbgmを流す
+        
         if len(self.blocks) == 0 or len(self.balls) == 0:
             # ゲームクリア or ゲームオーバー時は最初からやり直し
 
@@ -403,6 +416,17 @@ class Breakout:
     def result(self):
         '''ゲームの結果を表示する'''
 
+
+        if len(self.blocks) == 0:
+            self.canvas.create_text(
+                self.width // 2, self.height // 2,
+                text="GAME CLEAR",
+                font=("", 40),
+                fill="blue"
+            )
+            self.sound(2)
+            self.is_playing = False
+
         if len(self.balls) == 0:
             self.canvas.create_text(
                 self.width // 2, self.height // 2,
@@ -410,7 +434,7 @@ class Breakout:
                 font=("", 40),
                 fill="red"
             )
-
+            self.sound(1)
             self.is_playing = False
             self.count_time()
 
