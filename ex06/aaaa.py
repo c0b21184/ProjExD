@@ -122,7 +122,7 @@ class Ball:
             # 当たっていないならNoneを返却
             return None
 
-    def reflect(self, object):
+    def reflect(self, object): # 宮﨑作成
         '''当たった方向に応じて反射'''
 
         # 各オブジェクトの座標を取得
@@ -181,7 +181,7 @@ class Ball:
     def exists(self):
         '''画面内に残っているかどうかの確認'''
 
-        return True if self.y >= self.y_min else False
+        return True if self.y >= self.y_min else False 
 
 
 class Paddle:
@@ -430,7 +430,7 @@ class Breakout:
             )
             self.balls.append(ball)
 
-        # パドルを作成
+        # パドルを作成 宮﨑作成
         self.paddle = Paddle(
             self.width // 2, self.height - Y_PADDLE,
             WIDTH_PADDLE, HEIGHT_PADDLE,
@@ -475,7 +475,7 @@ class Breakout:
 
         # ブロックを描画
         for block in self.blocks:
-            x1, y1, x2, y2 = block.getCoords()
+            x1, y1, x2, y2 = block.getCoords() 
             figure = self.canvas.create_rectangle(
                 x1, y1, x2, y2,
                 fill=COLOR_BLOCK
