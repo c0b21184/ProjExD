@@ -1,5 +1,7 @@
 import tkinter
+import tkinter.messagebox as tkm
 import math
+import pygame as pg
 
 NUM_H_BLOCK = 10  # ブロッックの数（横方向)
 NUM_V_BLOCK = 5  # ブロックの数（縦方向）
@@ -9,9 +11,9 @@ COLOR_BLOCK = "blue"  # ブロックの色
 
 HEIGHT_SPACE = 300  # 縦方向の空きスペース
 
-WIDTH_PADDLE = 200  # パドルの幅
+WIDTH_PADDLE = 250  # パドルの幅
 HEIGHT_PADDLE = 20  # パドルの高さ
-Y_PADDLE = 150  # パドルの下方向からの位置
+Y_PADDLE = 50  # パドルの下方向からの位置
 COLOR_PADDLE = "green"  # パドルの色
 
 RADIUS_BALL = 10  # ボールの半径
@@ -20,6 +22,7 @@ NUM_BALL = 12  # ボールの数
 
 UPDATE_TIME = 20  # 更新間隔（ms）
 
+count = 0
 
 class Ball:
     def __init__(self, x, y, radius, x_min, y_min, x_max, y_max):
@@ -75,12 +78,12 @@ class Ball:
         #     self.reflectV()
         #     self.y = self.y_min
 
-        if self.y > self.y_max:
+        #if self.y > self.y_max:
             # 下の壁とぶつかった
 
             # 縦方向に反射
-            self.reflectV()
-            self.y = self.y_max
+            #self.reflectV()
+            #self.y = self.y_max
 
     def turn(self, angle):
         '''移動方向をangleに応じて設定'''
@@ -178,11 +181,14 @@ class Ball:
             # 横方向のみ当たったので横方向に反射
             self.reflectH()
 
-    def exists(self):
+
+    def exists1(self):
         '''画面内に残っているかどうかの確認'''
+        return False if 0 > self.y  else True
 
-        return True if self.y >= self.y_min else False
-
+    
+    def exists2(self):
+        return True if  self.y < self.y_max  else False
 
 class Paddle:
     def __init__(self, x, y, width, height, x_min, y_min, x_max, y_max):
@@ -212,7 +218,6 @@ class Paddle:
 
 
 class Block:
-
     def __init__(self, x, y, width, height):
         '''ブロック作成'''
 
@@ -246,7 +251,18 @@ class Breakout:
         self.drawFigures()
         self.setEvents()
 
+
+    def count_time(self): #得点と生存時間を描画する
+        time = pg.time.get_ticks()
+        time = time / 1000
+        times = time * 10
+        score = int(count * 100 - times)
+        tkm.showinfo("score",f"あなたの得点は{score}点です")
+        tkm.showinfo("time",f"生存時間は{time}秒です")
+
+
     def start(self, event):
+        global count
         '''ゲーム開始'''
 
         if len(self.blocks) == 0 or len(self.balls) == 0:
@@ -258,6 +274,7 @@ class Breakout:
             # 全オブジェクトの作り直しと図形描画
             self.createObjects()
             self.drawFigures()
+            count = 0
 
         # ゲーム開始していない場合はゲーム開始
         if not self.is_playing:
@@ -268,6 +285,7 @@ class Breakout:
 
     def loop(self):
         '''ゲームのメインループ'''
+        global count
 
         if not self.is_playing:
             # ゲーム開始していないなら何もしない
@@ -282,10 +300,15 @@ class Breakout:
 
         # ボールが画面外に出たかどうかをチェック
         delete_balls = []
+        delete_balls2 = []
         for ball in self.balls:
-            if not ball.exists():
+            if not ball.exists1():
                 # 外に出たボールは削除対象リストに入れる
                 delete_balls.append(ball)
+
+            elif not ball.exists2():
+                delete_balls2.append(ball)
+                count += 1
 
         for ball in delete_balls:
             # 削除対象リストのボールを削除
@@ -294,10 +317,13 @@ class Breakout:
                 self.width // 2, self.height // 2,
                 text="GAME OVER",
                 font=("", 40),
-                fill="red"
+                fill="blue"
             )
-
             self.is_playing = False
+            self.count_time()
+
+        for ball in delete_balls2:
+            self.delete(ball)
 
         self.collision()
         self.updateFigures()
@@ -373,34 +399,28 @@ class Breakout:
                 # 当たってたらballを反射
                 ball.reflect(self.paddle)
 
+
     def result(self):
         '''ゲームの結果を表示する'''
-
-        if len(self.blocks) == 0:
-            self.canvas.create_text(
-                self.width // 2, self.height // 2,
-                text="GAME CLEAR",
-                font=("", 40),
-                fill="blue"
-            )
-
-            self.is_playing = False
 
         if len(self.balls) == 0:
             self.canvas.create_text(
                 self.width // 2, self.height // 2,
-                text="GAME OVER",
+                text="GAME CLEAR",
                 font=("", 40),
                 fill="red"
             )
 
             self.is_playing = False
+            self.count_time()
+
 
     def setEvents(self):
         '''イベント受付設定'''
 
         self.canvas.bind("<ButtonPress>", self.start)
         self.canvas.bind("<Motion>", self.motion)
+
 
     def createWidgets(self):
         '''必要なウィジェットを作成'''
@@ -499,4 +519,5 @@ class Breakout:
 
 app = tkinter.Tk()
 Breakout(app)
+pg.init()
 app.mainloop()
